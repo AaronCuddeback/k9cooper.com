@@ -1,0 +1,637 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   ESD K9 COOPER - DESIGN SYSTEM
+   --------------------------------------------------------------------------
+   The palette, textures and panel treatments below are derived from the comic
+   poster supplied by the site owner: saturated comic blue, alarm red, signal
+   gold, aged cream paper and heavy black ink lines.
+
+   Everything here is a token. Change a value once and it propagates.
+   ========================================================================== */
+
+@theme {
+  /* ---- Ink & paper ----------------------------------------------------- */
+  --color-ink: #0b0b0d;
+  --color-ink-2: #1c1c22;
+  --color-ink-3: #3a3a44;
+  --color-paper: #fbf5e6;
+  --color-paper-2: #f4e9cf;
+  --color-paper-3: #e8d9b6;
+  --color-chalk: #ffffff;
+
+  /* ---- Comic blue (primary surface) ------------------------------------ */
+  --color-blue-50: #eaf1fb;
+  --color-blue-100: #cfe0f6;
+  --color-blue-200: #9dc0ec;
+  --color-blue-300: #5b93dc;
+  --color-blue-400: #2f6fc8;
+  --color-blue-500: #1d55a8;
+  --color-blue-600: #164285;
+  --color-blue-700: #113468;
+  --color-blue-800: #0c2549;
+  --color-blue-900: #081a34;
+  --color-blue-950: #050f1f;
+
+  /* ---- Alarm red (accent / urgency) ------------------------------------ */
+  --color-red-50: #fdeceb;
+  --color-red-100: #fbd2cf;
+  --color-red-200: #f5a09b;
+  --color-red-300: #e9605a;
+  --color-red-400: #d63a34;
+  --color-red-500: #bf2026;
+  --color-red-600: #9d181f;
+  --color-red-700: #7a1219;
+  --color-red-800: #560c12;
+
+  /* ---- Signal gold (highlight / CTA) ----------------------------------- */
+  --color-gold-50: #fef8e4;
+  --color-gold-100: #fdefc0;
+  --color-gold-200: #fbdf84;
+  --color-gold-300: #f8ca3e;
+  --color-gold-400: #f2b515;
+  --color-gold-500: #d99609;
+  --color-gold-600: #ac720a;
+  --color-gold-700: #7f530d;
+
+  /* ---- Brass (High Tech Crimes Unit badge) ----------------------------- */
+  --color-brass-200: #ecd4b0;
+  --color-brass-300: #d9b183;
+  --color-brass-400: #c9a06b;
+  --color-brass-500: #a97f4d;
+
+  /* ---- Scent green (the trail Cooper follows) -------------------------- */
+  --color-scent-300: #cfe04a;
+  --color-scent-400: #a8bf22;
+  --color-scent-500: #7d901a;
+
+  /* ---- Typography ------------------------------------------------------ */
+  --font-display: var(--font-anton), 'Arial Narrow', 'Haettenschweiler', sans-serif;
+  --font-comic: var(--font-bangers), 'Comic Sans MS', cursive;
+  --font-body: var(--font-nunito), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid display scale. Clamps keep 320px phones readable without a scrollbar. */
+  --text-hero: clamp(2.6rem, 11vw, 6.5rem);
+  --text-hero--line-height: 0.9;
+  --text-display: clamp(2rem, 7vw, 3.75rem);
+  --text-display--line-height: 0.95;
+  --text-title: clamp(1.5rem, 4.6vw, 2.5rem);
+  --text-title--line-height: 1.05;
+  --text-kicker: clamp(0.75rem, 2.4vw, 0.9rem);
+
+  /* ---- Comic ink borders ----------------------------------------------- */
+  --radius-panel: 0.375rem;
+
+  /* ---- Motion ---------------------------------------------------------- */
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-comic: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  :root {
+    color-scheme: light;
+    /* Ink-line weights, scaled down on phones so panels do not feel heavy. */
+    --ink-1: 2px;
+    --ink-2: 3px;
+    --ink-3: 4px;
+    --shadow-pop: 4px 4px 0 var(--color-ink);
+  }
+
+  @media (min-width: 48rem) {
+    :root {
+      --ink-1: 2px;
+      --ink-2: 4px;
+      --ink-3: 6px;
+      --shadow-pop: 6px 6px 0 var(--color-ink);
+    }
+  }
+
+  * {
+    min-width: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    line-height: 1;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, high-contrast focus ring on every interactive element. */
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--color-gold-400);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  /* Dark sections flip the focus ring so it stays visible. */
+  .on-dark :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline-color: var(--color-gold-300);
+  }
+
+  ::selection {
+    background: var(--color-gold-300);
+    color: var(--color-ink);
+  }
+
+  /* Respect the OS "reduce motion" setting everywhere. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   COMIC UTILITIES
+   ========================================================================== */
+
+@utility ink {
+  border: var(--ink-2) solid var(--color-ink);
+}
+@utility ink-thin {
+  border: var(--ink-1) solid var(--color-ink);
+}
+@utility ink-thick {
+  border: var(--ink-3) solid var(--color-ink);
+}
+
+/* Hard, offset "printed" shadow instead of a soft blur. */
+@utility pop {
+  box-shadow: var(--shadow-pop);
+}
+@utility pop-sm {
+  box-shadow: 3px 3px 0 var(--color-ink);
+}
+@utility pop-gold {
+  box-shadow: var(--shadow-pop), 0 0 0 0 transparent;
+}
+
+/* Ben-Day dots. Size and colour are tunable per element. */
+@utility benday {
+  background-image: radial-gradient(
+    var(--benday-color, rgb(0 0 0 / 0.16)) var(--benday-dot, 1.4px),
+    transparent var(--benday-dot, 1.4px)
+  );
+  background-size: var(--benday-size, 7px) var(--benday-size, 7px);
+}
+
+/* Soft halftone gradient - dots that fade out across the element. */
+@utility halftone-fade {
+  background-image: radial-gradient(
+    var(--benday-color, rgb(0 0 0 / 0.2)) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 8px 8px;
+  mask-image: linear-gradient(
+    var(--halftone-dir, to bottom),
+    black,
+    transparent var(--halftone-stop, 45%)
+  );
+}
+
+/* Radiating speed lines used behind hero art and burst headings. */
+@utility speed-lines {
+  background-image: repeating-conic-gradient(
+    from 0deg at var(--speed-x, 50%) var(--speed-y, 50%),
+    var(--speed-color, rgb(255 255 255 / 0.085)) 0deg 2.2deg,
+    transparent 2.2deg 7deg
+  );
+}
+
+/* Horizontal motion streaks. */
+@utility zip-lines {
+  background-image: repeating-linear-gradient(
+    var(--zip-angle, 90deg),
+    var(--zip-color, rgb(0 0 0 / 0.09)) 0 2px,
+    transparent 2px 11px
+  );
+}
+
+/* Torn-newsprint paper grain. */
+@utility newsprint {
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(rgb(11 11 13 / 0.055) 1px, transparent 1px),
+    radial-gradient(rgb(191 32 38 / 0.04) 1px, transparent 1px);
+  background-size: 6px 6px, 11px 11px;
+  background-position: 0 0, 3px 4px;
+}
+
+/* Slightly irregular panel corners - hand-inked rather than machine-cut. */
+@utility panel-skew-a {
+  clip-path: polygon(0.4% 1.2%, 99.6% 0%, 100% 98.6%, 0.8% 100%);
+}
+@utility panel-skew-b {
+  clip-path: polygon(0% 0.8%, 99.3% 1.4%, 99.6% 99.2%, 0.5% 98.8%);
+}
+
+@utility text-outline {
+  -webkit-text-stroke: var(--outline-w, 2px) var(--color-ink);
+  paint-order: stroke fill;
+}
+
+/* ==========================================================================
+   COMPONENT CLASSES
+   ========================================================================== */
+
+@layer components {
+  /* ---- Layout ---------------------------------------------------------- */
+  .shell {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+    max-width: 80rem;
+  }
+  @media (min-width: 40rem) {
+    .shell {
+      padding-inline: 1.75rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .shell-narrow {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+    max-width: 48rem;
+  }
+  @media (min-width: 40rem) {
+    .shell-narrow {
+      padding-inline: 1.75rem;
+    }
+  }
+
+  /* ---- Prose ----------------------------------------------------------- */
+  .prose-comic {
+    max-width: 68ch;
+  }
+  .prose-comic p + p {
+    margin-top: 1rem;
+  }
+  .prose-comic a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-red-400);
+    font-weight: 700;
+  }
+  .prose-comic a:hover {
+    background: var(--color-gold-200);
+  }
+  .prose-comic strong {
+    font-weight: 800;
+  }
+  .prose-comic ul {
+    margin-top: 0.75rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .prose-comic li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+  .prose-comic li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.62em;
+    width: 0.62rem;
+    height: 0.62rem;
+    background: var(--color-red-400);
+    border: 2px solid var(--color-ink);
+    transform: rotate(45deg);
+  }
+
+  /* ---- The kicker label that sits above headings ----------------------- */
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-comic);
+    font-size: 1rem;
+    letter-spacing: 0.09em;
+    line-height: 1;
+    padding: 0.4rem 0.7rem 0.3rem;
+    border: var(--ink-1) solid var(--color-ink);
+    background: var(--color-gold-300);
+    box-shadow: 3px 3px 0 var(--color-ink);
+    transform: rotate(-1.2deg);
+  }
+
+  /* ---- Buttons --------------------------------------------------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3rem;
+    padding: 0.7rem 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+    line-height: 1;
+    border: var(--ink-2) solid var(--color-ink);
+    box-shadow: var(--shadow-pop);
+    background: var(--color-chalk);
+    color: var(--color-ink);
+    transition:
+      transform 140ms var(--ease-out-comic),
+      box-shadow 140ms var(--ease-out-comic),
+      background-color 140ms ease;
+    text-align: center;
+  }
+  .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--color-ink);
+  }
+  .btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-ink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover,
+    .btn:active {
+      transform: none;
+    }
+  }
+
+  .btn-donate {
+    background: var(--color-red-500);
+    color: var(--color-chalk);
+  }
+  .btn-donate:hover {
+    background: var(--color-red-400);
+  }
+
+  .btn-gold {
+    background: var(--color-gold-300);
+    color: var(--color-ink);
+  }
+  .btn-gold:hover {
+    background: var(--color-gold-200);
+  }
+
+  .btn-blue {
+    background: var(--color-blue-500);
+    color: var(--color-chalk);
+  }
+  .btn-blue:hover {
+    background: var(--color-blue-400);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    box-shadow: none;
+    border-width: var(--ink-1);
+  }
+  .btn-ghost:hover {
+    background: var(--color-paper-2);
+    box-shadow: none;
+    transform: none;
+  }
+
+  .btn-sm {
+    min-height: 2.5rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.9rem;
+    box-shadow: 3px 3px 0 var(--color-ink);
+  }
+  .btn-lg {
+    min-height: 3.5rem;
+    padding: 0.95rem 1.75rem;
+    font-size: clamp(1.05rem, 3.4vw, 1.375rem);
+  }
+
+  /* ---- Badges ---------------------------------------------------------- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.55rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    line-height: 1.35;
+    border: 2px solid var(--color-ink);
+    background: var(--color-paper-2);
+  }
+  .badge-red {
+    background: var(--color-red-500);
+    color: var(--color-chalk);
+  }
+  .badge-gold {
+    background: var(--color-gold-300);
+  }
+  .badge-blue {
+    background: var(--color-blue-500);
+    color: var(--color-chalk);
+  }
+  .badge-green {
+    background: var(--color-scent-300);
+  }
+  .badge-muted {
+    background: var(--color-paper-3);
+    color: var(--color-ink-2);
+  }
+
+  /* ---- Sound effects --------------------------------------------------- */
+  .sfx {
+    font-family: var(--font-comic);
+    color: var(--color-gold-300);
+    -webkit-text-stroke: 3px var(--color-ink);
+    paint-order: stroke fill;
+    letter-spacing: 0.02em;
+    line-height: 0.9;
+    text-shadow: 4px 4px 0 var(--color-red-500);
+  }
+
+  /* ---- Cards ----------------------------------------------------------- */
+  .card {
+    position: relative;
+    background: var(--color-chalk);
+    border: var(--ink-2) solid var(--color-ink);
+    box-shadow: var(--shadow-pop);
+    transition:
+      transform 160ms var(--ease-out-comic),
+      box-shadow 160ms var(--ease-out-comic);
+  }
+  .card-hover:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--color-ink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover:hover {
+      transform: none;
+    }
+  }
+
+  /* ---- Section rules --------------------------------------------------- */
+  .rule-dots {
+    height: 0.75rem;
+    background-image: radial-gradient(var(--color-ink) 2.2px, transparent 2.2px);
+    background-size: 12px 12px;
+    background-position: center;
+  }
+
+  /* ---- Scroll reveal --------------------------------------------------- */
+  /*
+    The hidden starting state is scoped to `html.js`, which is set by a small
+    script in the document head. With JavaScript off the class never appears,
+    so revealed content is simply visible - it is never hidden by CSS alone.
+  */
+  .reveal {
+    transition:
+      opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html.js .reveal[data-reveal='hidden'] {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+  }
+
+  /* Link that only appears on keyboard focus. */
+  .skip-link {
+    position: absolute;
+    left: 0.75rem;
+    top: -6rem;
+    z-index: 200;
+    background: var(--color-gold-300);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.25rem;
+    border: 3px solid var(--color-ink);
+    box-shadow: 4px 4px 0 var(--color-ink);
+    transition: top 160ms var(--ease-out-comic);
+  }
+  .skip-link:focus {
+    top: 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   KEYFRAMES  (used sparingly, and always motion-safe)
+   ========================================================================== */
+
+@keyframes cooper-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.86) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes sniff-drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes scent-dash {
+  to {
+    stroke-dashoffset: -220;
+  }
+}
+
+@keyframes badge-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@utility animate-pop-in {
+  animation: cooper-pop-in 420ms var(--ease-pop) both;
+}
+@utility animate-sniff {
+  animation: sniff-drift 3.2s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   PRINT  (the family safety checklist and coloring page are printed a lot)
+   ========================================================================== */
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+  .no-print,
+  header[data-site-header],
+  footer[data-site-footer] {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .card,
+  .ink,
+  .ink-thick {
+    box-shadow: none !important;
+    border-color: #000 !important;
+  }
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    word-break: break-all;
+  }
+}
+
+.print-only {
+  display: none;
+}

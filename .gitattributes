@@ -1,0 +1,28 @@
+# Normalise line endings.
+#
+# This repo is edited on Windows but built on Linux (Cloudflare Pages). Without
+# this, every file Git touches gets rewritten with CRLF locally and shows up as
+# a whole-file change in every diff, which makes review useless.
+#
+# `text=auto eol=lf` stores everything as LF in the repository and checks it
+# out as LF. Node, Next.js and the build toolchain are all fine with LF on
+# Windows.
+* text=auto eol=lf
+
+# Binary assets must never be line-ending converted - doing so corrupts them.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.m4v binary
+*.mov binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+
+# Generated - collapse in diffs and skip language stats.
+package-lock.json -diff linguist-generated
