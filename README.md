@@ -83,25 +83,31 @@ Full-page screenshots at a given width, using real device-metric emulation.
 
 ---
 
-## Deploying to Vercel
+## Deploying
 
-1. Push this folder to a Git repository.
-2. In Vercel, **Add New → Project**, and import the repository.
-3. Framework preset: **Next.js**. Everything else can stay on defaults.
-4. Under **Settings → Environment Variables**, add:
+The site is hosted on **Cloudflare Pages** (free tier) at **k9cooper.com**, and
+deploys automatically on every push to `main`.
 
-   ```
-   NEXT_PUBLIC_SITE_URL = https://your-real-domain.com
-   ```
+```bash
+npm run check && git add -A && git commit -m "Describe the change" && git push
+```
 
-   This must be the real domain with no trailing slash, or canonical URLs,
-   the sitemap and social share cards will point at the wrong place.
-5. Deploy.
-6. Add the custom domain under **Settings → Domains**.
-7. Redeploy after adding the domain so the sitemap picks up the new URL.
+Cloudflare builds and publishes in a couple of minutes. To roll back, open a
+previous deployment under **Workers & Pages → k9cooper → Deployments** and
+choose **Rollback to this deployment**.
 
-Any static host works — the build output is fully static — but Vercel handles
-image optimisation with no configuration.
+**Read `docs/DEPLOYMENT.md` before changing anything about the build.** It
+covers the one-time setup, why this is on Cloudflare rather than Vercel (the
+free Vercel tier forbids sites that ask for donations) or Netlify (its free
+tier takes the site offline when monthly credits run out), and three things
+about the static export that are easy to break:
+
+- `headers()` in `next.config.ts` does nothing in production — the live
+  security headers are in `public/_headers`.
+- `next/image` cannot resize at request time, so images are served as they sit
+  in `/public`.
+- The Open Graph card is written as an extensionless file and needs its
+  `Content-Type` set in `public/_headers`, or social previews lose their image.
 
 ---
 
@@ -136,7 +142,7 @@ After any change:
 npm run check
 ```
 
-If that passes, commit and push. Vercel redeploys automatically.
+If that passes, commit and push. Cloudflare redeploys automatically.
 
 ---
 
