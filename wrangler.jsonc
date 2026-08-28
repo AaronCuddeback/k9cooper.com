@@ -12,6 +12,16 @@
   "name": "k9cooper-com",
   "compatibility_date": "2026-08-28",
 
+  // The site is served from k9cooper.com. Without this, Cloudflare also
+  // publishes it at k9cooper-com.<account>.workers.dev, so the same pages
+  // answer on two hostnames - duplicate content that can split search
+  // ranking, and a second public URL nobody is watching.
+  //
+  // Preview URLs stay on: they are per-version, unindexed, and are how a
+  // non-production branch gets checked before it reaches the live domain.
+  "workers_dev": false,
+  "preview_urls": true,
+
   "assets": {
     "directory": "./out",
 
