@@ -1,0 +1,31 @@
+{
+  // Cloudflare Workers deployment config.
+  //
+  // This site is a STATIC EXPORT - `npm run build` writes plain HTML to ./out
+  // and there is no Worker script to run. That is why there is no "main"
+  // entrypoint below: Cloudflare serves the files directly, and requests for
+  // static assets are not billed as Worker invocations.
+  //
+  // Deploy is `npx wrangler deploy`, which Cloudflare Workers Builds runs
+  // automatically on every push to main. See docs/DEPLOYMENT.md.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "k9cooper-com",
+  "compatibility_date": "2026-08-28",
+
+  "assets": {
+    "directory": "./out",
+
+    // Serve the site's own 404.html with a real 404 status for any unknown
+    // path. Without this, unmatched URLs get a bare Cloudflare 404 instead of
+    // Cooper's styled one.
+    //
+    // Do NOT use "single-page-application" here - that returns index.html
+    // with a 200 for every unknown URL, which would make the homepage answer
+    // to typos and let search engines index infinite duplicate pages.
+    "not_found_handling": "404-page"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}

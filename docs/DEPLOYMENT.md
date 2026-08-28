@@ -1,6 +1,7 @@
 # Deployment
 
-The site is hosted on **Cloudflare Pages**, free tier, at **k9cooper.com**.
+The site is hosted on **Cloudflare Workers** (static assets), free tier, at
+**k9cooper.com**.
 
 - **Cost:** $0/month for hosting. You pay only to renew the domain at Namecheap.
 - **How it updates:** push to `main` on GitHub → Cloudflare builds and publishes
@@ -27,7 +28,7 @@ visitors get a "Site not available" page** until the next billing cycle. With a
 7.4 MB video on a site whose traffic comes from social media, one popular post
 could take it offline.
 
-**Cloudflare Pages** has unmetered bandwidth, no commercial-use restriction and
+**Cloudflare** has unmetered bandwidth, no commercial-use restriction and
 no pause-on-cap behaviour. Free tier limits are 500 builds/month, 100 custom
 domains, 20,000 files, 25 MiB per file. This site is ~200 files and ~27 MB, with
 a largest file of 7.4 MB.
@@ -78,8 +79,11 @@ automated.
 
 ### 1. Create the GitHub repository **(you)**
 
-Make a **private** repo — the site content is public but the repo does not need
-to be. Do not initialise it with a README, since this project already has one.
+The repo is **AaronCuddeback/k9cooper.com**. It is currently public. Nothing
+sensitive is in it — `.env` was never committed and the docs are editorial
+guidance rather than operational detail — but it does put internal planning
+notes on display. Switch it to private under Settings → Danger Zone if you
+prefer; Cloudflare connects to private repos identically.
 
 Then, in the project folder:
 
@@ -94,20 +98,40 @@ git push -u origin main
 The first push will open a browser window to sign in to GitHub. That is Git
 Credential Manager; after the first time it remembers you.
 
-### 2. Connect Cloudflare Pages **(you)**
+### 2. Connect Cloudflare Workers **(you)**
 
-In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to
-Git**, pick the repo, then set:
+Cloudflare now steers new projects into the **Workers** flow rather than Pages.
+That is fine - Workers static assets serve this site the same way, requests for
+static files are not billed as Worker invocations, and `_headers` still works.
+
+In the dashboard: **Workers & Pages → Create → Connect to Git**, pick the repo,
+then set:
 
 | Setting | Value |
 | --- | --- |
-| Framework preset | Next.js (Static HTML Export) |
+| Project name | `k9cooper-com` |
 | Build command | `npm run build` |
-| Build output directory | `out` |
-| Node version | `20` (add env var `NODE_VERSION` = `20`) |
+| Deploy command | `npx wrangler deploy` |
+| Non-production branch deploy command | `npx wrangler versions upload` (default) |
+| Path | `/` |
+| API token | Create new token (Cloudflare generates it) |
 
-Set `NEXT_PUBLIC_SITE_URL` to `https://k9cooper.com` in the Pages environment
-variables, for both Production and Preview.
+Add two build variables, for both Production and Preview:
+
+| Variable | Value |
+| --- | --- |
+| `NODE_VERSION` | `20` |
+| `NEXT_PUBLIC_SITE_URL` | `https://k9cooper.com` |
+
+> **Leave "Protect with Cloudflare Access" switched OFF.** It puts the whole
+> site behind a Cloudflare login screen, which is the opposite of what a public
+> community site needs. It is for staging and internal tools.
+
+The deploy commands work because of `wrangler.jsonc` in the repo root. It points
+Cloudflare at `./out` and sets `not_found_handling: "404-page"` so unknown URLs
+return Cooper's styled 404 with a real 404 status. Do not switch that to
+`single-page-application` - that answers every unknown URL with the homepage at
+status 200, which lets search engines index infinite duplicate pages.
 
 ### 3. Point k9cooper.com at Cloudflare **(you)**
 
@@ -117,8 +141,8 @@ The domain is registered at **Namecheap**. Cloudflare needs to run DNS for it.
    give you two nameservers.
 2. In Namecheap: **Domain List → Manage → Nameservers → Custom DNS**, and enter
    the two Cloudflare nameservers.
-3. Back in Cloudflare Pages: **Custom domains → Set up a custom domain** → add
-   both `k9cooper.com` and `www.k9cooper.com`.
+3. Back in the Worker: **Settings → Domains & Routes → Add** → add both
+   `k9cooper.com` and `www.k9cooper.com`.
 
 Nameserver changes usually take under an hour but can take up to 24. HTTPS
 certificates are issued automatically once DNS resolves.
@@ -136,8 +160,8 @@ Once setup is done this is the whole workflow, and Claude can run it:
 git add -A && git commit -m "Describe the change" && git push
 ```
 
-Cloudflare builds automatically. Watch progress under **Workers & Pages → your
-project → Deployments**.
+Cloudflare builds automatically. Watch progress under **Workers & Pages →
+k9cooper-com → Deployments**.
 
 **Rolling back:** open any previous deployment in that list and choose
 **Rollback to this deployment**. This is why the site is on Git rather than
@@ -165,7 +189,7 @@ or if you add more video.
 4. In `src/content/videos.ts`, change the entry's `src` from
    `/videos/cooper-training-day.mp4` to the full R2 URL.
 5. Delete the file from `public/videos/` so it stops being committed and served
-   from Pages.
+   from the Worker.
 
 Egress from R2 is free, so this costs nothing at this scale.
 
@@ -187,5 +211,10 @@ The `Content-Type: image/png` rule for `/opengraph-image` in `public/_headers`
 is what makes it serve as an image. Do not delete that rule.
 
 **Site is live but the domain shows a Cloudflare error.**
-DNS has not finished propagating, or the custom domain was not added under
-Pages → Custom domains. Both `k9cooper.com` and `www.k9cooper.com` need adding.
+DNS has not finished propagating, or the domain was not added under the
+Worker's **Settings → Domains & Routes**. Both `k9cooper.com` and
+`www.k9cooper.com` need adding.
+
+**Visitors hit a Cloudflare login screen.**
+"Protect with Cloudflare Access" is enabled on the project. Turn it off under
+the Worker's settings - it is meant for private staging environments.
