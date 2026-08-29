@@ -1,7 +1,7 @@
 # QA report
 
-Run at the end of the build, against the **production** build (`next build` +
-`next start`), not the dev server.
+Run against the **exported production build** (`next build`, then
+`npm start` to serve `out/`), not the dev server.
 
 ---
 

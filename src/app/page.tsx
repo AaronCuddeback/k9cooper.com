@@ -59,7 +59,7 @@ export default function HomePage() {
                 </h2>
                 <div className="prose-comic mt-4 text-ink-2">
                   <p>
-                    Cooper is an Electronics Storage Device K9. That means he is
+                    Cooper is an Electronics Storage Detection K9. That means he is
                     trained to find electronics that somebody has hidden on
                     purpose - a phone taped behind a drawer, a memory card buried
                     in a yard, a hard drive at the bottom of a pond.
@@ -99,7 +99,7 @@ export default function HomePage() {
               <div className="p-6 pt-12 sm:p-8 sm:pt-14">
                 <p className="text-lg leading-relaxed text-blue-50">
                   <strong className="font-extrabold text-gold-300">
-                    ESD stands for Electronics Storage Device.
+                    ESD stands for Electronics Storage Detection.
                   </strong>{' '}
                   Cooper is not looking for metal, batteries or a signal. He is
                   following a smell - a faint chemical trace given off by

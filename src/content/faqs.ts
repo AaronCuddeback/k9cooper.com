@@ -64,7 +64,7 @@ export const faqs: Faq[] = [
     category: 'About Cooper',
     question: 'What is an ESD K9?',
     answer: [
-      'ESD stands for Electronics Storage Device. An ESD K9 is a dog trained to find hidden electronics - phones, tablets, memory cards, USB drives, hard drives and similar items.',
+      'ESD stands for Electronics Storage Detection. An ESD K9 is a dog trained to find hidden electronics - phones, tablets, memory cards, USB drives, hard drives and similar items.',
       'Cooper does not detect drugs or explosives. His entire job is finding electronics that someone has deliberately hidden.',
     ],
   },

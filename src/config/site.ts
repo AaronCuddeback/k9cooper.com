@@ -16,7 +16,7 @@ export const siteConfig = {
     'Not all heroes wear capes. Some have four paws and an incredible nose.',
 
   description:
-    'Meet ESD K9 Cooper, a yellow Labrador trained by Jordan Detection K9 and certified as a United States Secret Service Electronics Storage Device detection K9, working with Detective Aaron Cuddeback and the El Dorado County Sheriff’s Office High Tech Crimes Unit. Learn how Cooper finds hidden electronics, get free online-safety lessons for kids and families, follow his adventures, and help support his care.',
+    'Meet ESD K9 Cooper, a yellow Labrador trained by Jordan Detection K9 and certified as a United States Secret Service Electronics Storage Detection K9, working with Detective Aaron Cuddeback and the El Dorado County Sheriff’s Office High Tech Crimes Unit. Learn how Cooper finds hidden electronics, get free online-safety lessons for kids and families, follow his adventures, and help support his care.',
 
   /** Shown in the footer and used as the contact address across the site. */
   email: 'esdk9cooper@gmail.com',

@@ -149,7 +149,7 @@ export default function RootLayout({
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: siteConfig.name,
-            alternateName: 'Electronics Storage Device K9 Cooper',
+            alternateName: 'Electronics Storage Detection K9 Cooper',
             url: siteConfig.url,
             email: siteConfig.email,
             description: siteConfig.description,

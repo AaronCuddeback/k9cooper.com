@@ -459,7 +459,7 @@ export interface GlossaryEntry {
 }
 
 export const glossary: GlossaryEntry[] = [
-  { term: 'ESD K9', definition: 'Electronics Storage Device K9. A dog trained to find hidden electronics like phones, memory cards and USB drives.' },
+  { term: 'ESD K9', definition: 'Electronics Storage Detection K9. A dog trained to find hidden electronics like phones, memory cards and USB drives.' },
   { term: 'Alert', definition: 'The signal a detection dog gives when he finds the smell he was trained on. Cooper does not bark or dig at it - he shows his handler.' },
   { term: 'Handler', definition: 'The person who works with a police dog every day. They train together, work together and go home together.' },
   { term: 'TPPO', definition: 'A chemical used in making some electronic parts. It has a smell that Cooper can be trained to find. Humans cannot smell it at all.' },

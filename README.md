@@ -1,7 +1,7 @@
 # ESD K9 Cooper
 
-The official website for **ESD K9 Cooper**, an Electronics Storage Device
-detection K9 with the El Dorado County Sheriff's Office High Tech Crimes Unit.
+The official website for **ESD K9 Cooper**, an Electronics Storage Detection
+K9 with the El Dorado County Sheriff's Office High Tech Crimes Unit.
 
 > One Nose. One Mission. Protect Children.
 
@@ -49,13 +49,23 @@ the site free to host, impossible to spam, and free of anything that could leak.
 | --- | --- |
 | `npm run dev` | Development server with hot reload |
 | `npm run build` | Production build |
-| `npm start` | Serve the production build locally |
+| `npm start` | Serve the exported `out/` folder locally (see note below) |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript, no emit |
 | `npm test` | Vitest suite (61 tests) |
 | `npm run check` | Typecheck, lint, test and build in one go — run this before deploying |
 
-Two QA scripts that need the dev server running in another terminal:
+Because the site builds with `output: 'export'`, `next start` refuses to run
+it — there is no server to start. `npm start` therefore serves the exported
+`out/` folder with a small static server (`scripts/serve-export.mjs`) that
+mirrors what a static host does: clean URLs and a real 404 page.
+
+The QA scripts below need a server running in another terminal. Point them at
+the exported build, which is what actually ships:
+
+```bash
+npm run build && npm start
+```
 
 ```bash
 node scripts/audit-breakpoints.mjs

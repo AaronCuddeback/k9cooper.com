@@ -61,7 +61,7 @@ export default function OpengraphImage() {
             textTransform: 'uppercase',
           }}
         >
-          Electronics Storage Device K9
+          Electronics Storage Detection K9
         </div>
         <div
           style={{

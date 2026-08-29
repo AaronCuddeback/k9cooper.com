@@ -79,7 +79,7 @@ export interface StatItem {
 
 export const cooperStats: StatItem[] = [
   { label: 'Breed', value: 'Yellow Labrador Retriever' },
-  { label: 'Specialty', value: 'Electronics Storage Device detection' },
+  { label: 'Specialty', value: 'Electronics Storage Detection' },
   { label: 'Date of birth', value: cooperDobLabel },
   { label: 'Age', value: `${cooperAgeInYears()} years old` },
   { label: 'First career', value: 'Assistance dog in training, Paws With A Cause' },
@@ -136,7 +136,7 @@ export const funFacts: { emoji: string; text: string; pending?: boolean }[] = [
  * keep it factual and keep it approved. Do not add operational detail here.
  */
 export const cooperBio: string[] = [
-  'Cooper is a yellow Labrador Retriever, born on July 17, 2024. He is an Electronics Storage Device detection K9 - and he did not start out that way.',
+  'Cooper is a yellow Labrador Retriever, born on July 17, 2024. He is an Electronics Storage Detection K9 - and he did not start out that way.',
   'At around a year old, Cooper began training with Paws With A Cause in Michigan to become an assistance and facility dog supporting people with disabilities. It is demanding work, and it is not the right fit for every dog. It was not the right fit for Cooper.',
   'What Cooper did have was a nose, and a serious appetite for using it. At about a year and a half old he was accepted into the electronics detection program at Jordan Detection K9, where he spent six rigorous months learning to find hidden electronic storage devices - the training that qualified him as a United States Secret Service ESD K9.',
   'The Secret Service then selected the other half of the team. Detective Aaron Cuddeback of the El Dorado County Sheriff’s Office was chosen on the strength of his work in Internet Crimes Against Children investigations and digital forensics.',

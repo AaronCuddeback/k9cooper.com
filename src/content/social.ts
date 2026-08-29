@@ -64,7 +64,7 @@ export const featuredPosts: SocialPost[] = [
     platform: 'instagram',
     url: 'https://www.instagram.com/p/DcUoIuRijCD/',
     caption:
-      'What exactly does an Electronics Storage Device K9 do? The explainer poster, TPPO and all.',
+      'What exactly does an Electronics Storage Detection K9 do? The explainer poster, TPPO and all.',
     thumbnail: '/images/social/ig-1.jpg',
     thumbnailAlt:
       'The ESD K9 Cooper comic poster, showing Cooper in his harness beside a panel headed Cooper’s Superpower: His Nose',

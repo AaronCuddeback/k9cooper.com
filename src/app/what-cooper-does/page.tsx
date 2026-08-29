@@ -19,7 +19,7 @@ import { siteConfig } from '@/config/site'
 export const metadata: Metadata = pageMetadata({
   title: 'What Cooper Does',
   description:
-    'How an Electronics Storage Device K9 works: what ESD means, what Cooper is trained to find, the odour he follows, where he can search, and what happens after he alerts his handler.',
+    'How an Electronics Storage Detection K9 works: what ESD means, what Cooper is trained to find, the odour he follows, where he can search, and what happens after he alerts his handler.',
   path: '/what-cooper-does',
   keywords: [
     'how does an ESD K9 work',
@@ -67,7 +67,7 @@ export default function WhatCooperDoesPage() {
 
             <div className="prose-comic mt-5">
               <p>
-                <strong>ESD stands for Electronics Storage Device.</strong>{' '}
+                <strong>ESD stands for Electronics Storage Detection.</strong>{' '}
                 Cooper is trained to locate electronics that someone has
                 deliberately hidden - the kind of device that a person searching
                 a room by hand could easily walk straight past.
@@ -334,7 +334,7 @@ export default function WhatCooperDoesPage() {
               name: 'What is an ESD K9?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'ESD stands for Electronics Storage Device. An ESD K9 is a dog trained to locate hidden electronics such as phones, tablets, memory cards, USB drives and hard drives.',
+                text: 'ESD stands for Electronics Storage Detection. An ESD K9 is a dog trained to locate hidden electronics such as phones, tablets, memory cards, USB drives and hard drives.',
               },
             },
             {

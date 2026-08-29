@@ -22,7 +22,7 @@ interface PageMetaInput {
 
 export const defaultKeywords = [
   'ESD K9 Cooper',
-  'Electronics Storage Device K9',
+  'Electronics Storage Detection K9',
   'electronic detection dog',
   'electronic storage detection K9',
   'K9 online safety education',

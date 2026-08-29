@@ -94,7 +94,7 @@ export default function MeetCooperPage() {
                   Cooper
                 </p>
                 <p className="mt-1 font-comic text-lg tracking-wide text-blue-100">
-                  Electronics Storage Device K9
+                  Electronics Storage Detection K9
                 </p>
 
                 <dl className="mt-5 grid gap-px overflow-hidden border-2 border-ink bg-ink sm:grid-cols-2">

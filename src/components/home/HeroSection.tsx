@@ -44,7 +44,7 @@ export function HeroSection() {
         <div className="max-w-2xl">
           <p className="inline-flex items-center gap-2 border-[3px] border-ink bg-gold-300 px-3 py-1.5 font-comic text-base tracking-[0.08em] text-ink">
             <PawPrint aria-hidden="true" className="h-4 w-4" />
-            Electronics Storage Device K9
+            Electronics Storage Detection K9
           </p>
 
           <h1 className="mt-4">

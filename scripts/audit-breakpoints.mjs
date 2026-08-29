@@ -19,7 +19,7 @@
  */
 import { spawn } from 'node:child_process'
 import http from 'node:http'
-import { existsSync } from 'node:fs'
+import { existsSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import WebSocket from 'ws'
 
@@ -40,27 +40,33 @@ if (!CHROME) {
 const PORT = 9222
 const BASE = process.env.AUDIT_BASE ?? 'http://localhost:3000'
 const WIDTHS = [320, 375, 390, 430, 768, 1024, 1440]
-const PAGES = [
-  '/',
-  '/meet-cooper',
-  '/what-cooper-does',
-  '/mission',
-  '/safety-hq',
-  '/adventures',
-  '/adventures/sample-a-morning-of-hides',
-  '/events',
-  '/events/sample-safety-day-at-the-library',
-  '/gallery',
-  '/social',
-  '/support',
-  '/shop',
-  '/sponsors',
-  '/faq',
-  '/contact',
-  '/privacy',
-  '/accessibility',
-  '/this-page-does-not-exist',
-]
+// Routes are discovered from the build output rather than hard-coded, so this
+// list cannot drift when content is added or removed. Falls back to the
+// homepage if `out/` is missing (for example when auditing `next dev`).
+function discoverPages() {
+  const outDir = join(process.cwd(), 'out')
+  if (!existsSync(outDir)) return ['/']
+
+  const found = []
+  const walk = (dir, prefix) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (entry.isDirectory()) {
+        if (entry.name === '_next') continue
+        walk(join(dir, entry.name), `${prefix}/${entry.name}`)
+      } else if (entry.name.endsWith('.html')) {
+        const base = entry.name.replace(/\.html$/, '')
+        // 404.html is exercised through a deliberately missing URL instead.
+        if (base === '404') continue
+        found.push(base === 'index' ? prefix || '/' : `${prefix}/${base}`)
+      }
+    }
+  }
+  walk(outDir, '')
+  found.push('/this-page-does-not-exist')
+  return [...new Set(found)].sort()
+}
+
+const PAGES = discoverPages()
 
 const profile = join(process.env.TEMP ?? '/tmp', 'cooper-cdp-profile')
 
