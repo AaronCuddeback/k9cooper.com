@@ -6,6 +6,7 @@ import { SiteHeader } from '@/components/layout/SiteHeader'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { StickyDonateBar } from '@/components/donate/StickyDonateBar'
 import { StructuredData } from '@/components/StructuredData'
+import { CloudflareAnalytics } from '@/components/analytics/CloudflareAnalytics'
 import { siteConfig } from '@/config/site'
 import { activeSocialAccounts } from '@/config/social'
 import { defaultKeywords } from '@/lib/seo'
@@ -143,6 +144,9 @@ export default function RootLayout({
 
         <SiteFooter />
         <StickyDonateBar />
+
+        {/* Renders nothing unless NEXT_PUBLIC_CF_BEACON_TOKEN is set. */}
+        <CloudflareAnalytics />
 
         <StructuredData
           data={{

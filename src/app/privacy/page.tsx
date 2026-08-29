@@ -91,12 +91,31 @@ export default function PrivacyPage() {
 
             <h2 className="mt-8 text-title uppercase">Analytics</h2>
             <p>
-              No analytics provider is currently enabled. If a privacy-first,
-              cookieless one is added later, it will count anonymous page views
-              and a small number of actions such as donate-button clicks - never
-              anything that identifies a person. This notice will be updated at
-              that point.
+              This site uses <strong>Cloudflare Web Analytics</strong> to count
+              how many people visit and which pages they read. It is measured
+              without cookies: nothing is stored on your device, you are not
+              given an identifier, and you are not followed from one site to
+              another or from one device to another.
             </p>
+            <p>
+              What it records is the page address, where the link came from, the
+              rough country, the browser type and how quickly the page loaded.
+              None of that identifies you, and it is not combined with anything
+              else. It is used for one thing - working out which parts of the
+              site are useful, and which are not.
+            </p>
+            <p>
+              There is no advertising, no behavioural profiling and no tracking
+              pixel anywhere on this site, and there never will be. Because
+              nothing is stored on your device, there is no cookie banner to
+              click.
+            </p>
+            {/*
+              If the analytics provider ever changes, this section changes with
+              it. Cloudflare Web Analytics records no custom events; if a
+              provider that records individual actions is added later, say so
+              here and name what is recorded. See docs/ANALYTICS.md.
+            */}
 
             <h2 className="mt-8 text-title uppercase">Donations</h2>
             <p>

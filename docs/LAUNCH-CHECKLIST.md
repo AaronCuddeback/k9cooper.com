@@ -302,7 +302,12 @@ Jordan Detection K9, the U.S. Secret Service and the NCFI.
       law should be checked. The notice describes the build accurately, but it
       is not legal advice and makes no compliance claim.
 - [ ] Name the hosting provider and link their data-processing terms.
-- [ ] If analytics is switched on later, update the notice. See
+- [ ] **The privacy page now states that the site uses Cloudflare Web
+      Analytics.** That copy shipped alongside the integration, so switch the
+      analytics on in the Cloudflare dashboard (Analytics & Logs → Web
+      Analytics → Add a site) — otherwise the page describes measurement that
+      is not happening. See `docs/ANALYTICS.md`.
+- [ ] If the analytics provider changes later, update the notice. See
       [`ANALYTICS.md`](ANALYTICS.md).
 
 ## Emergency and reporting guidance
@@ -371,5 +376,7 @@ Not oversights:
   cannot break and cannot track visitors.
 - **No newsletter sign-up.** The brief said only if approved, and it would mean
   collecting email addresses on a site written for children.
-- **No analytics enabled by default.**
+- **No behavioural advertising, no tracking pixels, no cross-site tracking.**
+  Analytics is Cloudflare Web Analytics only: cookieless, no consent banner, and
+  no custom events. The twelve events wired into the code stay dormant under it.
 - **No emergency numbers other than 911**, which is stated in the brief.
