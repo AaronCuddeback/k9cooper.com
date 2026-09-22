@@ -5,23 +5,29 @@
  * to be listed publicly. Listing a business implies a relationship that may not
  * exist yet.
  *
- * The array below is intentionally EMPTY. The sponsors page renders a
- * well-designed "become the first supporter" state until real entries exist.
- *
  * To add one:
  *   {
  *     id: 'example-vet',
  *     name: 'Example Veterinary Clinic',
  *     level: 'Veterinary Partner',
  *     url: 'https://example.com',
- *     logo: { src: '/images/sponsors/example.png', width: 400, height: 200 },
+ *     logo: { src: '/images/sponsors/example.webp', width: 400, height: 200 },
  *     blurb: 'One approved sentence about the partnership.',
  *   }
+ *
+ * The logo goes in /public/images/sponsors/. Trim it to the artwork's own edges
+ * so the card controls the padding, size it to about 400px on the long side
+ * (it renders at roughly half that), and set `width`/`height` to the real pixel
+ * dimensions so the grid does not jump while it loads.
+ *
+ * If this array is emptied again, the page falls back to a "be the first
+ * supporter" state rather than showing a gap.
  */
 
 export type SponsorLevel =
   | 'Founding Partner'
   | 'Veterinary Partner'
+  | 'Grooming Partner'
   | 'Equipment Partner'
   | 'Community Supporter'
   | 'Event Sponsor'
@@ -35,7 +41,21 @@ export interface Sponsor {
   blurb?: string
 }
 
-export const sponsors: Sponsor[] = []
+export const sponsors: Sponsor[] = [
+  {
+    id: 'bens-barketplace-folsom',
+    name: 'Ben’s Barketplace',
+    level: 'Grooming Partner',
+    url: 'https://bensbarketplace.com/locations/folsom/',
+    logo: {
+      src: '/images/sponsors/bens-barketplace.webp',
+      width: 400,
+      height: 400,
+    },
+    blurb:
+      'The Folsom store keeps Cooper clean, with free dog washes whenever he needs one. A working K9 finds a great many things worth rolling in.',
+  },
+]
 
 export const sponsorLevels: {
   level: SponsorLevel
@@ -47,6 +67,12 @@ export const sponsorLevels: {
     description:
       'Clinics and veterinary professionals who help keep Cooper healthy and working.',
     examples: 'Checkups, dental care, emergency treatment, preventative medicine.',
+  },
+  {
+    level: 'Grooming Partner',
+    description:
+      'Groomers and pet stores keeping a working dog clean, comfortable and presentable.',
+    examples: 'Dog washes, grooming, nail trims, coat and paw care.',
   },
   {
     level: 'Equipment Partner',

@@ -207,7 +207,7 @@ merchandise image has alt text shorter than about 10–15 characters.
 | Adventure cover | 1400 × 900 | Displayed 16:10 |
 | Event image | 1200 × 800 | |
 | Merchandise photo | 1000 × 1000 | Square |
-| Sponsor logo | 400 × 200, transparent PNG | Sits on white |
+| Sponsor logo | ~400 px long edge, transparent WebP or PNG | Sits on white, trimmed to the artwork |
 | Mascot medallion | 512 × 512 | Square crop, face centred |
 | Social thumbnail | 1080 × 1080 | Square |
 | Social share card | 1200 × 630 | Generated automatically, see below |

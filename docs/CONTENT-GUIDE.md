@@ -243,8 +243,8 @@ wording.
 
 **File:** `src/content/sponsors.ts`
 
-The array starts empty on purpose. **Never add an organisation until they have
-agreed in writing to be listed publicly.**
+**Never add an organisation until they have agreed in writing to be listed
+publicly.** Listing a business implies a relationship that may not exist yet.
 
 ```ts
 {
@@ -252,13 +252,23 @@ agreed in writing to be listed publicly.**
   name: 'Example Veterinary Clinic',
   level: 'Veterinary Partner',
   url: 'https://example.com',
-  logo: { src: '/images/sponsors/example.png', width: 400, height: 200 },
+  logo: { src: '/images/sponsors/example.webp', width: 400, height: 200 },
   blurb: 'One approved sentence.',
 }
 ```
 
-While the list is empty the page shows a well-designed "be the first supporter"
-state rather than an awkward gap.
+`level` must be one of the values in the `SponsorLevel` union. If a new
+supporter does not fit any of them, add a level to that union *and* a matching
+entry to `sponsorLevels` below it, so the "ways to sponsor" section stays in
+step with the wall.
+
+Put the logo in `/public/images/sponsors/`, trimmed to the artwork's own edges
+so the card controls the padding, about 400px on the long side, with `width`
+and `height` set to the real pixel dimensions.
+
+The grid sizes itself from the number of sponsors plus Cooper's note, so one
+supporter does not sit alone in a three-column row. If the array is emptied, the
+page falls back to a "be the first supporter" state rather than an awkward gap.
 
 ---
 

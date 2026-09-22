@@ -173,9 +173,14 @@ an honest "being finalised" state plus the 911 guidance. **Safe to launch empty.
 
 **File:** `src/content/sponsors.ts`
 
-- [ ] Empty on purpose. Never list an organisation before written agreement.
+- [ ] **Ben's Barketplace (Folsom) — confirm written agreement is on file** to
+      be named publicly as a supporter, and that they are happy with the wording
+      of their blurb and with "Grooming Partner" as the label.
+- [ ] Never list any further organisation before written agreement.
 
-The page shows a "be the first supporter" state. **Safe to launch empty.**
+If the array is emptied, the page falls back to a "be the first supporter"
+state, so it is **safe to launch with no sponsors** if that agreement is not yet
+confirmed.
 
 ## Configuration
 

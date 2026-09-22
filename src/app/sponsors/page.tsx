@@ -23,6 +23,15 @@ export const metadata: Metadata = pageMetadata({
 export default function SponsorsPage() {
   const hasSponsors = sponsors.length > 0
 
+  /*
+    Cooper's note sits in the same grid as the cards, so the columns are driven
+    by cards + 1. With a single sponsor a three-column track would leave two
+    thirds of the row empty.
+  */
+  const cellCount = sponsors.length + 1
+  const gridCols =
+    cellCount >= 3 ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:grid-cols-2'
+
   return (
     <>
       <PageHero
@@ -48,55 +57,75 @@ export default function SponsorsPage() {
           {hasSponsors ? (
             <>
               <SectionHeading kicker="Thank you" title="The people behind Cooper" />
-              <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {sponsors.map((sponsor) => (
-                  <li key={sponsor.id}>
-                    <ComicPanel
-                      as="article"
-                      tone="white"
-                      tiltSeed={sponsor.id}
-                      className="flex h-full flex-col p-5"
-                    >
-                      <span className="badge badge-gold self-start">{sponsor.level}</span>
+              <div className={`mt-8 grid items-start gap-6 ${gridCols}`}>
+                {/*
+                  `contents` lets the cards sit directly in the grid alongside
+                  Cooper, who is not a sponsor and must not be announced as one.
+                  Older Safari drops list semantics from a `display: contents`
+                  list, so the role is restated explicitly.
+                */}
+                <ul role="list" className="contents">
+                  {sponsors.map((sponsor) => (
+                    <li key={sponsor.id}>
+                      <ComicPanel
+                        as="article"
+                        tone="white"
+                        tiltSeed={sponsor.id}
+                        className="flex h-full flex-col p-5"
+                      >
+                        <span className="badge badge-gold self-start">{sponsor.level}</span>
 
-                      {sponsor.logo ? (
-                        <div className="mt-4 grid h-24 place-items-center bg-white">
-                          <Image
-                            src={sponsor.logo.src}
-                            alt={`${sponsor.name} logo`}
-                            width={sponsor.logo.width}
-                            height={sponsor.logo.height}
-                            className="max-h-24 w-auto object-contain"
-                          />
-                        </div>
-                      ) : null}
+                        {/*
+                          Tall enough that a round badge logo stays legible - at
+                          96px the lettering inside one is unreadable. Logos are
+                          trimmed to their own edges, so the padding lives here.
+                        */}
+                        {sponsor.logo ? (
+                          <div className="mt-4 grid h-36 place-items-center bg-white p-2">
+                            <Image
+                              src={sponsor.logo.src}
+                              alt={`${sponsor.name} logo`}
+                              width={sponsor.logo.width}
+                              height={sponsor.logo.height}
+                              className="max-h-32 w-auto object-contain"
+                            />
+                          </div>
+                        ) : null}
 
-                      <h2 className="mt-4 font-display text-xl tracking-wide uppercase">
-                        {sponsor.name}
-                      </h2>
+                        <h2 className="mt-4 font-display text-xl tracking-wide uppercase">
+                          {sponsor.name}
+                        </h2>
 
-                      {sponsor.blurb ? (
-                        <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-2">
-                          {sponsor.blurb}
-                        </p>
-                      ) : null}
+                        {sponsor.blurb ? (
+                          <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-2">
+                            {sponsor.blurb}
+                          </p>
+                        ) : null}
 
-                      {sponsor.url ? (
-                        <a
-                          href={sponsor.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 underline decoration-2 underline-offset-4"
-                        >
-                          <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
-                          Visit {sponsor.name}
-                          <span className="sr-only">(opens in a new tab)</span>
-                        </a>
-                      ) : null}
-                    </ComicPanel>
-                  </li>
-                ))}
-              </ul>
+                        {sponsor.url ? (
+                          <a
+                            href={sponsor.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 underline decoration-2 underline-offset-4"
+                          >
+                            <ExternalLink aria-hidden="true" className="h-3.5 w-3.5" />
+                            Visit {sponsor.name}
+                            <span className="sr-only">(opens in a new tab)</span>
+                          </a>
+                        ) : null}
+                      </ComicPanel>
+                    </li>
+                  ))}
+                </ul>
+
+                <CooperGuide pose="duty" label="Mission Briefing" size="lg" stacked>
+                  <p>
+                    I am not fussy about who feeds me, but my handler is fussy
+                    about who we put on this page. Everyone here said yes first.
+                  </p>
+                </CooperGuide>
+              </div>
             </>
           ) : (
             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -123,8 +152,9 @@ export default function SponsorsPage() {
 
               <CooperGuide pose="duty" label="Mission Briefing" size="lg" stacked>
                 <p>
-                  I am not fussy about who feeds me, but my handler is fussy about
-                  who we put on this page. Everyone here said yes first.
+                  I am not fussy about who feeds me, but my handler is fussy
+                  about who goes on this page. Nobody is listed until they say
+                  yes in writing.
                 </p>
               </CooperGuide>
             </div>
